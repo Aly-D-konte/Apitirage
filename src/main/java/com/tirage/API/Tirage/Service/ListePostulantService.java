@@ -1,4 +1,11 @@
 package com.tirage.API.Tirage.Service;
 
-public class ListePostulantService {
+import com.tirage.API.Tirage.Model.ListePostulant;
+
+import java.util.List;
+
+public interface ListePostulantService {
+
+    List<ListePostulant> lister();
+
 }
