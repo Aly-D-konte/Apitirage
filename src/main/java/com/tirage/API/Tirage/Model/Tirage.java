@@ -16,7 +16,6 @@ import java.util.Date;
 public class Tirage {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (name="idTirage")
     private Long idTirage;
     private Date dateT;
     private String libelle;

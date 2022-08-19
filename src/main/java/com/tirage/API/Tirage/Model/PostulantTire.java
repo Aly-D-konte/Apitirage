@@ -16,7 +16,6 @@ import javax.persistence.*;
 public class PostulantTire {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (name="id_postulant_tire")
     private Long id_postulant_tire;
 
     @ManyToOne

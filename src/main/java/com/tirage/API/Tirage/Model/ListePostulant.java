@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -16,12 +18,11 @@ import java.util.Date;
 public class ListePostulant {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (name = "idListeP")
 
-    private Long idListeP;
+    private Long id_Liste_postulant;
     private Date date;
     private String libelle;
 
     @ManyToMany
-    private Postulant postulant;
+    private List<Postulant> postulants;
 }
