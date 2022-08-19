@@ -10,9 +10,6 @@ public interface PostulantService {
 
     Postulant Ajout(Postulant postulant);
 
-
-    Postulant Modifier(Postulant postulant, Long id_postulant);
-
     List<Postulant> lister();
 
 }

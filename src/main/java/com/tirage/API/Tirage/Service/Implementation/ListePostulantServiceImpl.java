@@ -17,4 +17,5 @@ public class ListePostulantServiceImpl implements ListePostulantService {
     public List<ListePostulant> lister() {
         return listePostulantRepository.findAll();
     }
+
 }

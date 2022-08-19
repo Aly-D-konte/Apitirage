@@ -23,10 +23,7 @@ public class PostulantServiceImpl implements PostulantService {
         return postulantRepository.save(postulant);
     }
 
-    @Override
-    public Postulant Modifier(Postulant postulant, Long id_postulant) {
-        return null;
-    }
+
 
     @Override
     public List<Postulant> lister() {
