@@ -8,4 +8,6 @@ import java.util.List;
 public interface TirageService {
 
     List<Tirage> lister();
+
+    Iterable<Object[]> tirageAleatoire(Long id);
 }
