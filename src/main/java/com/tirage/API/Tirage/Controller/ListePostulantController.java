@@ -24,15 +24,8 @@ public class ListePostulantController {
     ListePostulantRepository listePostulantRepository;
 
     PostulantService postulantService;
-    @PostMapping("/add")
-    public List<Postulant> list(@RequestParam("file") MultipartFile file){
-    List<Postulant> postulants = Excel.postulantsExcel(file);
-
-
-        for (Postulant p: postulants){
-         postulantService.Ajout(p);
-        }
-
-        return Excel.postulantsExcel(file);
+    @PostMapping("/add/{libelle}")
+   public List<Postulant> liste(){
+        return postulantService.lister();
     }
 }

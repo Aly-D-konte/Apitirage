@@ -2,6 +2,8 @@ package com.tirage.API.Tirage.Model;
 
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,101 +13,72 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
 public class Excel {
-    public static String excelType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    public static String SHEET = "Postulants";
+    public List<Postulant> excelImport( MultipartFile file) {
+        List <Postulant> postulantList = new ArrayList<>();
 
-    // Methode qui verifi si le fichier est un fichier Excel
-    public static Boolean verifier(MultipartFile file) {
 
-        if (excelType.equals(file.getContentType())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+        String nom_postulant="";
+        String prenom_postulant="";
+        String numero_postulant="0";
+        String email_postulant="";
 
-    // Methode qui retourne la liste des postulants à travers le fichier excel
-    // fournit
-    public static List<Postulant> postulantsExcel(MultipartFile file) {
+
+       // String excelFilePath = "C:\\Users\\ADIAWIAKOYE\\IdeaProjects\\apiFreeTirage\\CSV.xlsx";
+        // String excelFilePath = "C:\\Users\\mkkeita\\Desktop\\projects\\apiFreeTirag\\file1.xlsx";
+
+        Long start = System.currentTimeMillis();//l'heure de debut
 
         try {
-            // creation d'une liste dans la quelle on va mettre la liste recuperée
-            List<Postulant> postulants = new ArrayList<Postulant>();
-
-            // lecture du fichier
+            //FileInputStream inputStrean = new FileInputStream(file.getInputStream());
             Workbook workbook = new XSSFWorkbook(file.getInputStream());
-            Iterator<Sheet> sheet = workbook.sheetIterator();
 
-            DataFormatter formatter = new DataFormatter();
+            Sheet firstSheet=workbook.getSheetAt(0);
+            Iterator<Row> rowIterator=firstSheet.iterator();
 
-            while (sheet.hasNext()) {
+            rowIterator.next();
 
-                int numeroLigne = 0;
+            while (rowIterator.hasNext()){
 
-                // System.out.println(ligne.next().getRowNum());
+                Row nextRow = rowIterator.next();
+                Iterator<Cell> cellIterator=nextRow.cellIterator();
 
-                Sheet sh = sheet.next();
-                Iterator<Row> iterator = sh.iterator();
-                // parcour du fichier excel ligne par ligne
-                while (iterator.hasNext()) {
-                    Row row = iterator.next();
-                    Iterator<Cell> cellIterator = row.iterator();
-                    // Recuperation de la ligne courante
-                    // Row ligneCourante = ligne.next();
-                    // on lui dit de sauter la première ligne du fichier, qui est l'entête
-                    if (numeroLigne == 0) {
-                        numeroLigne++;
-                        continue;
+                while (cellIterator.hasNext()){
+                    Cell nextCell=cellIterator.next();
+
+                    int columnIndex=nextCell.getColumnIndex();
+                    switch (columnIndex){
+                        case 0:
+                            nom_postulant=nextCell.getStringCellValue();
+                            System.out.println(nom_postulant);
+                            break;
+                        case 1:
+                            prenom_postulant=nextCell.getStringCellValue();
+                            System.out.println(prenom_postulant);
+                            break;
+                        case 2:
+                            numero_postulant=(String) nextCell.getStringCellValue();
+                            System.out.println(numero_postulant);
+                            break;
+                        case 3:
+                            email_postulant=nextCell.getStringCellValue();
+                            System.out.println(email_postulant);
+                            break;
                     }
-
-                    // Après avoir recuperer une ligne, on crée un postulant et on recupère ses
-                    // attributs;
-                    Postulant postulant = new Postulant();
-
-                    int numeroColonne = 0;
-                    // parcour des colonnes d'une ligne
-                    while (cellIterator.hasNext()) {
-                        // Recuperation de la colonne courante
-                        Cell colonneCourante = cellIterator.next();
-                        // recuperation des infos de chaque colonne
-                        switch (numeroColonne) {
-                            // première colonne contenant le nom
-                            case 0:
-                                postulant.setNom(formatter.formatCellValue(colonneCourante));
-                                // System.out.println(colonneCourante.getStringCellValue());
-                                break;
-                            // deuxième colonne contenant le prenom
-                            case 1:
-                                postulant.setPrenom(formatter.formatCellValue(colonneCourante));
-                                break;
-                            // troixième colonne contenant le numero
-                            case 2:
-                                postulant.setNumero(formatter.formatCellValue(colonneCourante));
-                                break;
-                            // dernière colonne contenant l'adresse mail
-                            case 3:
-                                postulant.setMail(formatter.formatCellValue(colonneCourante));
-                                break;
-                            default:
-                                break;
-                        }
-                        numeroColonne++;
-                    }
-                    postulants.add(postulant);
-                    // numeroLigne++;
+                    //postulantList.add(new Postulant(nom_postulant, prenom_postulant, numero_postulant, email_postulant));
                 }
+                postulantList.add(new Postulant(nom_postulant, prenom_postulant, numero_postulant, email_postulant));
+
+
             }
-
             workbook.close();
-            return postulants;
-
+            Long end = System.currentTimeMillis();//l'heure de fin
+            System.out.printf("Import done in %d ms\n", (end - start));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
-            // TODO: handle exception
-            return null;
         }
 
+        return  postulantList;
     }
 }

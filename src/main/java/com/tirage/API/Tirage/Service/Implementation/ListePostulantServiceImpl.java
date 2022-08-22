@@ -14,8 +14,18 @@ public class ListePostulantServiceImpl implements ListePostulantService {
     ListePostulantRepository listePostulantRepository;
 
     @Override
+    public ListePostulant creer(ListePostulant listePostulant) {
+        return listePostulantRepository.save(listePostulant);
+    }
+
+    @Override
     public List<ListePostulant> lister() {
         return listePostulantRepository.findAll();
+    }
+
+    @Override
+    public ListePostulant trouverListeParLibelle(String libelle) {
+        return listePostulantRepository.findByLibelle(libelle);
     }
 
 }

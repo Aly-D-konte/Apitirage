@@ -7,6 +7,9 @@ import java.util.List;
 @Service
 public interface ListePostulantService {
 
+    ListePostulant creer(ListePostulant listePostulant);
+
     List<ListePostulant> lister();
+    ListePostulant trouverListeParLibelle(String libelle);
 
 }

@@ -20,9 +20,8 @@ public class ListePostulant {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
 
     private Long id_Liste_postulant;
-    private Date date;
+    private Date date_liste;
     private String libelle;
 
-    @ManyToMany
-    private List<Postulant> postulants;
+
 }
