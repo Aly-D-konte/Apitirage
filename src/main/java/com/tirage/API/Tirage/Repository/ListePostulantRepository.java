@@ -13,11 +13,11 @@ import javax.transaction.Transactional;
 public interface ListePostulantRepository extends JpaRepository <ListePostulant, Long> {
 
 
-    ListePostulant findByLibelle(String nom);
-
+    ListePostulant findByLibelle(String libelle);
+/*
     @Modifying
     @Transactional
     @Query(value = "insert into postulant(id_Liste_postulant) VALUES (:id_Liste_postulant);", nativeQuery = true)
-    public int INSERTIDLIST(@Param("id_Liste_postulant") Long id_Liste_postulant);
+    public int INSERTIDLIST(@Param("id_Liste_postulant") Long id_Liste_postulant);*/
 
 }

@@ -13,9 +13,11 @@ public interface PostulantTireRepository extends JpaRepository <PostulantTire, L
 
     @Modifying
     @Transactional
-    @Query(value="INSERT INTO postulanttire(id,nom,prenom,numero,email,id_tirage)VALUES(?,?,?,?,?,?);",nativeQuery = true)
+    @Query(value="INSERT INTO posttrie(id_postulant_tire,nom_postulant,prenom_postulant,numero_postulant,mail_postulant,id_tirage)VALUES(?,?,?,?,?,?);",nativeQuery = true)
     public int INSERTPOSTTIRE(Long id_postulant,String nom_postulant,String prenom_postulant,String numero_postulant,String mail_postulant, Long id_tirage);
 
+    @Query(value = "SELECT * FROM posttrie", nativeQuery = true)
+    Iterable<Object[]> AfficherTousLesPostulantTire();
 
 
 }

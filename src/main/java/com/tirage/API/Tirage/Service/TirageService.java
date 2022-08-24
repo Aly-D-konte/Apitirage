@@ -17,7 +17,7 @@ public interface TirageService {
 
 
     //Methodes pour le tirage
-    List<Postulant> creer(Tirage tirage, List<Postulant> listAtrier, Long nbre, Long id_Liste_postulant);
+    List<Postulant> creer(Tirage tirage, List<Postulant> listAtrier, Long nbre);
 
     Tirage trouverTirageParLibelle(String libelle);
 }

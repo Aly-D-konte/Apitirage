@@ -4,6 +4,7 @@ import com.tirage.API.Tirage.Model.ListePostulant;
 import com.tirage.API.Tirage.Model.Postulant;
 import com.tirage.API.Tirage.Model.PostulantTire;
 import com.tirage.API.Tirage.Model.Tirage;
+import com.tirage.API.Tirage.Service.Implementation.PostulantTireServiceImpl;
 import com.tirage.API.Tirage.Service.ListePostulantService;
 import com.tirage.API.Tirage.Service.PostulantService;
 import com.tirage.API.Tirage.Service.PostulantTireService;
@@ -33,35 +34,39 @@ public class TirageController {
     private final ListePostulantService listePostulantService;
     private final PostulantService postulantService;
     private  final PostulantTireService postulantTrieService;
+    private  final PostulantTireServiceImpl postulantTrieServiceImpl;
 
     @PostMapping("/createTirage/{libelle}/{nbre}")
     public String create(@RequestBody Tirage tirage, @PathVariable String libelle, @PathVariable Long nbre){
-        tirage.setDateT(new Date());
-        ListePostulant listePostulant = listePostulantService.trouverListeParLibelle(libelle);
+
+        if(tirageService.trouverTirageParLibelle(tirage.getLibelle()) == null){ //verifie si le tirage est fait
+            ListePostulant listePostulant = listePostulantService.trouverListeParLibelle(libelle);
+            List<Postulant> postulantList = postulantService.Trouverid_Liste_postulant(listePostulant.getId_Liste_postulant());
+
+            List<Postulant> ListePostulants = tirageService.creer(tirage, postulantList, nbre);//recuperation des id des postulant trié
+            Long id_Tirage = tirageService.trouverTirageParLibelle(tirage.getLibelle()).getIdTirage();
+        //tirage.setDateT(new Date());
         //retourne tous les postulants d'une liste donnée
-        Long id_Liste_postulant =  listePostulant.getId_Liste_postulant();//identifiant de la liste entrée par l'user
-        List<Postulant> postulantList = postulantService.postulantParListe(listePostulant);
-        System.out.println(postulantList);
-/*
-       for (Object p: postuL)
-       {
-           System.out.println(p);
-       }
-*/      //List<Object> pl = ;
-        //postulantTrieService.creer(pl.)
+        //Long id_Liste_postulant =listePostulant.getId_Liste_postulant();//identifiant de la liste entrée par l'user
+        //List<Postulant> postulantList = postulantService.postulantParListe(listePostulant);
 
-        //postulantTrieService.creer(postuL);
-        List<Postulant> ListePostulants = tirageService.creer(tirageService.ajouter(tirage), postulantList, nbre, id_Liste_postulant);//recuperation des id des postulant trié
-        Long id_Tirage = tirageService.trouverTirageParLibelle(tirage.getLibelle()).getIdTirage();
 
+
+        //Parcouris et enregistré les postulants triés
         for (Postulant p : ListePostulants){
-            PostulantTire pos=new PostulantTire(null, tirageService.trouverTirageParLibelle(tirage.getLibelle()));
-            postulantTrieService.ajouter(pos);
-            //postulantTrieService.creer(p.getId_postulant(),p.getNom_postulant(),p.getPrenom_postulant(), p.getNumero_postulant(),p.getMail_postulant(), id_Tirage);
+            //PostulantTire pos=new PostulantTire(null, tirageService.trouverTirageParLibelle(tirage.getLibelle()));
+            //postulantTrieService.ajouter(pos);
+            //Enregistré la liste triée
+            postulantTrieService.creer(p.getId_postulant(),p.getNom_postulant(),p.getPrenom_postulant(), p.getNumero_postulant(),p.getMail_postulant(), id_Tirage);
         }
 
-        return "succès";
+
+
+        return "Tirage effectué avec succès" ;
+    }else{
+        return " Ce tirage exixte dejà";
     }
 
 
+    }
 }

@@ -22,7 +22,7 @@ public class TirageServiceImpl  implements TirageService {
 
 
     @Override
-    public List<Postulant> creer(@RequestBody Tirage tirage, List<Postulant> listAtrier, Long nbre, Long id_Liste_postulant) {
+    public List<Postulant> creer(@RequestBody Tirage tirage, List<Postulant> listAtrier, Long nbre) {
 
         //création d'une variable random
         Random rand = new Random();
@@ -30,18 +30,17 @@ public class TirageServiceImpl  implements TirageService {
         //declaration de la liste qui contiendra les postulants selectionnés
         List<Postulant> list = new ArrayList<>();
 
-        for (int i = 0; i< nbre; i++)
+        for (int i= 0; i< nbre; i++)
         {
+            //Convertire le Random en nombre
             Integer idAct = rand.nextInt(listAtrier.size());
-
-            //while (idAct == 0 || list.contains(idAct)){
-            //idAct = rand.nextInt(listAtrier.size());
-            //}
-
+            //Ajouter la liste trié à la liste
             list.add(listAtrier.get(idAct));
-
+            //Supprimer la liste trier à la liste importer
             listAtrier.remove(listAtrier.get(idAct));
         }
+        tirageRepository.save(tirage);
+
 //        tirageRepository.INSERERTIRAGE(tirage.getLibelle(), id_Liste_postulant);
         return list;
     }

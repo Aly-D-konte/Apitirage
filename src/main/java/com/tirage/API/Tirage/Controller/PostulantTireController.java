@@ -13,10 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostulantTireController {
     @Autowired
     PostulantTireService postulantTireService;
-
+/*
     @GetMapping(value = "/afficherpostulanttire")
     public int create(Long id_postulant, String nom_postulant, String prenom_postulant, String numero_postulant, String mail_postulant, Long id_tirage){
         return postulantTireService.creer(id_postulant,nom_postulant,prenom_postulant,numero_postulant,mail_postulant,id_tirage);
 
     }
+
+ */
+    @GetMapping(value = "/afficherpostulanttire")
+    public Iterable<Object[]> getPostulantTire(){
+        return  postulantTireService.AfficherTousLesPostulantTire();
+    }
+
+
 }

@@ -16,6 +16,7 @@ public interface TirageRepository extends JpaRepository <Tirage, Long> {
     Iterable<Object[]> tirageAleatoire(Long id);*/
 
 
+
     Tirage findByLibelle(String libelle);
 
     //requete permettant d'inser un tirage avec son id

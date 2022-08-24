@@ -3,7 +3,9 @@ package com.tirage.API.Tirage.Service;
 import com.tirage.API.Tirage.Model.ListePostulant;
 import com.tirage.API.Tirage.Model.Postulant;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public interface PostulantService {
@@ -14,8 +16,10 @@ public interface PostulantService {
     List<Postulant> lister();
 
     List<Postulant> enregistrer(List<Postulant> postulantList);
+    Iterable<Object[]> AfficherTousLesPostulant();
 
 
+    ArrayList<Postulant> importerFichier(MultipartFile file);
 
     //Methodes pour le tirage
 

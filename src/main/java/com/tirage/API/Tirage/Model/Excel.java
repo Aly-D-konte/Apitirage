@@ -15,6 +15,7 @@ import java.util.List;
 
 
 public class Excel {
+    /*
     public List<Postulant> excelImport( MultipartFile file) {
         List <Postulant> postulantList = new ArrayList<>();
 
@@ -80,5 +81,5 @@ public class Excel {
         }
 
         return  postulantList;
-    }
+    }*/
 }
