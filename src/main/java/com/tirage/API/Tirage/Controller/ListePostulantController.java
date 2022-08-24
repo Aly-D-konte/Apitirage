@@ -1,7 +1,5 @@
 package com.tirage.API.Tirage.Controller;
 
-import com.tirage.API.Tirage.Model.Excel;
-import com.tirage.API.Tirage.Model.ListePostulant;
 import com.tirage.API.Tirage.Model.Postulant;
 import com.tirage.API.Tirage.Repository.ListePostulantRepository;
 import com.tirage.API.Tirage.Service.PostulantService;
@@ -9,9 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

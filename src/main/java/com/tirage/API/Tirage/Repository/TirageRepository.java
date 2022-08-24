@@ -20,9 +20,9 @@ public interface TirageRepository extends JpaRepository <Tirage, Long> {
     Tirage findByLibelle(String libelle);
 
     //requete permettant d'inser un tirage avec son id
-    /*@Modifying
+    @Modifying
     @Transactional
     @Query(value = "INSERT INTO Tirage(date, libelle, id_liste_postulant) VALUES(NOW(),?,?);",nativeQuery = true)
-    public int INSERERTIRAGE(String libelle, Long id_Liste_postulant);*/
+    public int INSERERTIRAGE(String libelle, Long id_Liste_postulant);
 
 }

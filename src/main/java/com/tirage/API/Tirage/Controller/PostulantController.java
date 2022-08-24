@@ -1,6 +1,5 @@
 package com.tirage.API.Tirage.Controller;
 
-import com.tirage.API.Tirage.Model.Excel;
 import com.tirage.API.Tirage.Model.ListePostulant;
 import com.tirage.API.Tirage.Model.Postulant;
 import com.tirage.API.Tirage.Service.ListePostulantService;
@@ -52,7 +51,7 @@ public class PostulantController {
             }
             postulantService.importerFichier(file);
             postulantService.AfficherTousLesPostulant();
-            return "Fichier importé";
+            return "Fichier importé avec succès";
         }else {
             return "Cette liste existe déja.";
         }
