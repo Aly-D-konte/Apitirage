@@ -32,9 +32,14 @@ public class PostulantTireServiceImpl implements PostulantTireService {
     }
 
     @Override
-    public int creer(Long id_postulant, String nom_postulant, String prenom_postulant, String numero_postulant, String email, Long id_tirage_id) {
-        return postulantTireRepository.INSERTPOSTTIRE(id_postulant, nom_postulant, prenom_postulant, numero_postulant, email, id_tirage_id);
+    public int creer(Long id_postulant, String nom_postulant, String prenom_postulant, String numero_postulant, String mail, Long id_tirage_id) {
+        return postulantTireRepository.INSERTPOSTTIRE(id_postulant, nom_postulant, prenom_postulant, numero_postulant, mail, id_tirage_id);
 
+    }
+
+    @Override
+    public Iterable<Object[]> AfficherTousLesPostulantTire() {
+        return postulantTireRepository.AfficherTousLesPostulantTire();
     }
 
 /*

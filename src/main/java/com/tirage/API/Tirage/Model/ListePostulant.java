@@ -18,7 +18,6 @@ import java.util.List;
 public class ListePostulant {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-
     private Long id_Liste_postulant;
     private Date date_liste;
     private String libelle;

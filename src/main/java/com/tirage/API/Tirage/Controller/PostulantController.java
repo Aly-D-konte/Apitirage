@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,28 +37,33 @@ public class PostulantController {
 
 
 
-    @RequestMapping("/import/excel/{libelle}")
-    @ResponseBody
-    public String importFormExcel(@Param("file") MultipartFile file, ListePostulant listePostulant, String libelle) {
-        //listeService.ajouterIdListe();
-        Excel excelImporter  = new Excel();
-        List<Postulant> postulantList = excelImporter.excelImport(file);
-        if(postulantList.size()==0){
-            return "Fichier vide";
-        }else{
-            listePostulant.setDate_liste(new Date());
-            ListePostulant l = listePostulantService.creer(listePostulant);
-            //long id_liste = listeService.trouverListeParLibelle(libelle).getId_liste();
+    @PostMapping("/importer/{libelle}")
+    public String LireFichier(@Param("file")MultipartFile file, ListePostulant liste, String libelle){
 
-            for (Postulant p:postulantList){
+        if(listePostulantService.trouverListeParLibelle(liste.getLibelle())==null){
+            ArrayList<Postulant> importer = postulantService.importerFichier(file);
+            liste.setDate_liste(new Date());
+            ListePostulant l = listePostulantService.creer(liste);
+
+            for (Postulant p: importer)
+            {
                 p.setListePostulant(l);
+                postulantService.Ajout(p);
             }
-            postulantService.enregistrer(postulantList);
-            return "import succsfully";
+            postulantService.importerFichier(file);
+            postulantService.AfficherTousLesPostulant();
+            return "Fichier importé";
+        }else {
+            return "Cette liste existe déja.";
         }
+
+
     }
+    @GetMapping(value = "/afficherpostulant")
 
-
+    public Iterable<Object[]> getPostulants(){
+        return  postulantService.AfficherTousLesPostulant();
+    }
 
 
 }

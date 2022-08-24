@@ -7,6 +7,7 @@ import java.util.List;
 @Service
 public interface PostulantTireService {
 
+
     List<PostulantTire> lister();
     PostulantTire Modifier(PostulantTire postulantTire, Long id);
 
@@ -14,5 +15,7 @@ public interface PostulantTireService {
 
     PostulantTire ajouter(PostulantTire postulantTire);
 
-    int  creer(Long id_postulant, String nom_postulant, String prenom_postulant, String numero_postulant, String email, Long id_tirage_id);
+    int  creer(Long id_postulant, String nom_postulant, String prenom_postulant, String numero_postulant, String mail_postulant, Long id_tirage);
+    Iterable<Object[]> AfficherTousLesPostulantTire();
+
 }
