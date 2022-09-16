@@ -38,8 +38,8 @@ public class PostulantTireServiceImpl implements PostulantTireService {
     }
 
     @Override
-    public Iterable<Object[]> AfficherTousLesPostulantTire() {
-        return postulantTireRepository.AfficherTousLesPostulantTire();
+    public List<PostulantTire> AfficherTousLesPostulantTire() {
+        return postulantTireRepository.findAll();
     }
 
 /*

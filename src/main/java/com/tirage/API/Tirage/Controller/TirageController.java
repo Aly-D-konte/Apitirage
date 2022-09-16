@@ -4,6 +4,7 @@ import com.tirage.API.Tirage.Model.ListePostulant;
 import com.tirage.API.Tirage.Model.Postulant;
 import com.tirage.API.Tirage.Model.PostulantTire;
 import com.tirage.API.Tirage.Model.Tirage;
+import com.tirage.API.Tirage.Repository.ListePostulantRepository;
 import com.tirage.API.Tirage.Service.Implementation.PostulantTireServiceImpl;
 import com.tirage.API.Tirage.Service.ListePostulantService;
 import com.tirage.API.Tirage.Service.PostulantService;
@@ -19,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/tirage")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class TirageController {
 
 /*
@@ -34,29 +36,50 @@ public class TirageController {
     private final ListePostulantService listePostulantService;
     private final PostulantService postulantService;
     private  final PostulantTireService postulantTrieService;
+    private  final ListePostulantRepository listePostulantRepository;
     private  final PostulantTireServiceImpl postulantTrieServiceImpl;
 
     @PostMapping("/createTirage/{libelle}/{nbre}")
-    public String create(@RequestBody Tirage tirage, @PathVariable String libelle, @PathVariable Long nbre){
+    public String create(@RequestBody Tirage tirage, @PathVariable("libelle") String libelle, @PathVariable("nbre") Long nbre){
 
-        if(tirageService.trouverTirageParLibelle(tirage.getLibelle()) == null){ //verifie si le tirage est fait
+      //  if(tirageService.trouverTirageParLibelle(tirage.getLibelle()) == null)
+        ListePostulant listePostulant2 = listePostulantRepository.findByLibelle(libelle);
+
+        if (listePostulant2 != null)
+        { //verifie si le tirage est fait
+
             ListePostulant listePostulant = listePostulantService.trouverListeParLibelle(libelle);
+
             List<Postulant> postulantList = postulantService.Trouverid_Liste_postulant(listePostulant.getId_Liste_postulant());
 
             List<Postulant> ListePostulants = tirageService.creer(tirage, postulantList, nbre);//recuperation des id des postulant trié
+
             Long id_Tirage = tirageService.trouverTirageParLibelle(tirage.getLibelle()).getIdTirage();
-        //tirage.setDateT(new Date());
+            listePostulantService.modifier(listePostulant.getId_Liste_postulant());
+
+
+
+
+          // tirage.setListePostulant(listePostulant2);
+          tirage.setListePostulant(listePostulant);
+          tirage.setNbre_postulant_tire(nbre);
+
+          //  tirageService.creer(tirage,ListePostulants,nbre);
+
+          //  System.out.println("Ajout du tirage "+nbre+" -- "+ListePostulants+" -- "+tirage);
+
+
+
+            //tirage.setDateT(new Date());
         //retourne tous les postulants d'une liste donnée
         //Long id_Liste_postulant =listePostulant.getId_Liste_postulant();//identifiant de la liste entrée par l'user
         //List<Postulant> postulantList = postulantService.postulantParListe(listePostulant);
 
 
-
         //Parcouris et enregistré les postulants triés
         for (Postulant p : ListePostulants){
-            //PostulantTire pos=new PostulantTire(null, tirageService.trouverTirageParLibelle(tirage.getLibelle()));
-            //postulantTrieService.ajouter(pos);
             //Enregistré la liste triée
+
             postulantTrieService.creer(p.getId_postulant(),p.getNom_postulant(),p.getPrenom_postulant(), p.getNumero_postulant(),p.getMail_postulant(), id_Tirage);
         }
 
@@ -68,5 +91,23 @@ public class TirageController {
     }
 
 
+    }
+
+    //Nombre de tirage
+    @GetMapping(value = "/liste")
+    List<Tirage> list(){
+        return tirageService.lister();
+    }
+
+    //Nombre de total de tirage effectué sur une liste
+    @GetMapping(value = "/total")
+    public  int totaltirage(){
+        return  tirageService.totalliste();
+    }
+
+    //Total tirage effectué sur une liste
+    @GetMapping(value = "/tirage_liste/{id_liste}")
+    public List<Tirage> TirageParListe(@PathVariable Long id_liste) {
+        return tirageService.TirageParListe(id_liste);
     }
 }

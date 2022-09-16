@@ -1,6 +1,5 @@
 package com.tirage.API.Tirage.Service;
 
-import com.tirage.API.Tirage.Model.ListePostulant;
 import com.tirage.API.Tirage.Model.Postulant;
 import com.tirage.API.Tirage.Model.Tirage;
 import org.springframework.stereotype.Service;
@@ -20,4 +19,10 @@ public interface TirageService {
     List<Postulant> creer(Tirage tirage, List<Postulant> listAtrier, Long nbre);
 
     Tirage trouverTirageParLibelle(String libelle);
+
+    String nombre(String idliste);
+
+    int totalliste();
+
+    List<Tirage> TirageParListe(Long id_liste);
 }

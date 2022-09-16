@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/postulant")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class PostulantController {
 
     @Autowired
@@ -63,6 +64,18 @@ public class PostulantController {
     public Iterable<Object[]> getPostulants(){
         return  postulantService.AfficherTousLesPostulant();
     }
+
+    @GetMapping(value = "/afficherpostulants")
+    public List<Postulant> list(){
+        return  postulantService.lister();
+    }
+
+
+    @GetMapping(value = "/totalpostulant")
+    public int totalpostulant(){
+        return postulantService.totalpostulant();
+    }
+
 
 
 }

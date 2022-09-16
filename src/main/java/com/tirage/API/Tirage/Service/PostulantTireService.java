@@ -16,6 +16,6 @@ public interface PostulantTireService {
     PostulantTire ajouter(PostulantTire postulantTire);
 
     int  creer(Long id_postulant, String nom_postulant, String prenom_postulant, String numero_postulant, String mail_postulant, Long id_tirage);
-    Iterable<Object[]> AfficherTousLesPostulantTire();
+    List<PostulantTire> AfficherTousLesPostulantTire();
 
 }

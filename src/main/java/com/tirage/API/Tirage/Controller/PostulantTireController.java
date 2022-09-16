@@ -1,15 +1,20 @@
 package com.tirage.API.Tirage.Controller;
 
+import com.tirage.API.Tirage.Model.PostulantTire;
 import com.tirage.API.Tirage.Service.PostulantTireService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/postulanttire")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class PostulantTireController {
     @Autowired
     PostulantTireService postulantTireService;
@@ -22,8 +27,16 @@ public class PostulantTireController {
 
  */
     @GetMapping(value = "/afficherpostulanttire")
-    public Iterable<Object[]> getPostulantTire(){
+    public List<PostulantTire> getPostulantTire(){
+
         return  postulantTireService.AfficherTousLesPostulantTire();
+    }
+
+
+    @GetMapping("/total")
+    public List<PostulantTire> list(){
+
+        return  postulantTireService.lister();
     }
 
 

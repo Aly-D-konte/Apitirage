@@ -21,5 +21,6 @@ public interface PostulantRepository extends JpaRepository <Postulant, Long>{
     @Query(value = "SELECT * FROM postulant", nativeQuery = true)
     Iterable<Object[]> AfficherTousLesPostulant();
 
-
+    @Query(value = "SELECT COUNT(*) FROM postulant ;", nativeQuery = true)
+    int totalpostulant();
 }

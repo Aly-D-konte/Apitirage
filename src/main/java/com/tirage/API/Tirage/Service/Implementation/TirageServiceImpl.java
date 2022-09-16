@@ -1,6 +1,5 @@
 package com.tirage.API.Tirage.Service.Implementation;
 
-import com.tirage.API.Tirage.Model.ListePostulant;
 import com.tirage.API.Tirage.Model.Postulant;
 import com.tirage.API.Tirage.Model.Tirage;
 import com.tirage.API.Tirage.Repository.TirageRepository;
@@ -48,7 +47,7 @@ public class TirageServiceImpl  implements TirageService {
 
     @Override
     public List<Tirage> lister() {
-        return null;
+        return tirageRepository.findAll();
     }
 
     @Override
@@ -62,10 +61,27 @@ public class TirageServiceImpl  implements TirageService {
         return tirageRepository.findByLibelle(libelle);
     }
 
+    @Override
+    public String nombre(String id_liste) {
+        return tirageRepository.nombre(id_liste);
+    }
+
+    @Override
+    public int totalliste() {
+        return tirageRepository.totalTirage();
+    }
+
+    @Override
+    public List<Tirage> TirageParListe(Long id_liste) {
+        return tirageRepository.trouverTirageParListe(id_liste);
+    }
+
    /* @Override
     public Iterable<Object[]> tirageAleatoire( Long id) {
         return tirageRepository.tirageAleatoire(id);
     }
 
     */
+
+
 }

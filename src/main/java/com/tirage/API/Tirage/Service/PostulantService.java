@@ -26,4 +26,5 @@ public interface PostulantService {
     List<Postulant> Trouverid_Liste_postulant(Long id_Liste_postulant);
 
     List<Postulant> postulantParListe(ListePostulant postulant);
+    int totalpostulant();
 }

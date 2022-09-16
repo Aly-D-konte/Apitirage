@@ -21,6 +21,7 @@ public class ListePostulant {
     private Long id_Liste_postulant;
     private Date date_liste;
     private String libelle;
+    private int nombre;
 
 
 }

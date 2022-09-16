@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "posttrie")
 public class PostulantTire {
     @Id
@@ -25,4 +24,14 @@ public class PostulantTire {
     @JoinColumn(name = "id_tirage")
     private Tirage tirage;
 
+
+    public PostulantTire(Long id_postulant_tire, String nom_postulant, String prenom_postulant, String numero_postulant, String mail_postulant, Tirage tirage) {
+        super();
+        this.id_postulant_tire = id_postulant_tire;
+        this.nom_postulant = nom_postulant;
+        this.prenom_postulant = prenom_postulant;
+        this.numero_postulant = numero_postulant;
+        this.mail_postulant = mail_postulant;
+        this.tirage = tirage;
+    }
 }

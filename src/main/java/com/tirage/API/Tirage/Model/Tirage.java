@@ -17,11 +17,13 @@ public class Tirage {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long idTirage;
-    private Date dateT;
+    private Date dateT = new Date();
     private String libelle;
-
+    private Long nbre_postulant_tire;
 
     @ManyToOne
     @JoinColumn(name = "id_liste")
     private ListePostulant listePostulant;
+
+
 }

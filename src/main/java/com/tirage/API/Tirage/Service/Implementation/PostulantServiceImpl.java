@@ -134,4 +134,9 @@ public class PostulantServiceImpl implements PostulantService {
     public List<Postulant> postulantParListe(ListePostulant postulant) {
         return postulantRepository.findByListePostulant(postulant);
     }
+
+    @Override
+    public int totalpostulant() {
+        return postulantRepository.totalpostulant();
+    }
 }
